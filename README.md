@@ -19,3 +19,5 @@ Since I use Windows, the separate is \n, convert it into what Linux can read
 - using
 sed -i 's/\r$$//' xxxx.sh
 
+4.Install Spark
+[how to install spark](https://medium.com/@GalarnykMichael/install-spark-on-windows-pyspark-4498a5d8d66c)
