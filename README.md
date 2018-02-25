@@ -23,3 +23,25 @@ pip install numpy
 4.Install Spark
 [how to install spark](https://medium.com/@GalarnykMichael/install-spark-on-windows-pyspark-4498a5d8d66c)
 
+If using DataFrame in spark, it really takes long time to execute.. so try rdd.
+### Explore play.fn
+Using 'unzip_clean_play.sh' to combine all daily log data into a whole file, adding the filename(which contains the date) as new column. The combined play.log.fn contains features as:
+- user_id numeric
+- device categoric
+- song_id
+- song_type
+- song_name
+- singer
+- play_time
+- song_length
+- paid_flag
+- date
+1.Since we are aiming to analyze and predict churn rate, informationa about songs are of little use. So to accelerate our calculation, we first drop those columns(song_id, song_type, song_name, singer)
+2.Dealing with abnormal data
+
+save unique user_id list to memory, when 
+machine users: play.count(<95%)
+
+**churn label**
+**down sampling** 
+try from smaller, 30%, 40%, if not improve, 
