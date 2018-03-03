@@ -45,3 +45,14 @@ machine users: play.count(<95%)
 **churn label**
 **down sampling** 
 try from smaller, 30%, 40%, if not improve, 
+
+**Note 3.2**
+count of song_play time, total time, distinct count
+
+
+20170339 ->20170329
+20170309-20170329中间没有
+其余按uid, date, play_time, song_length<<看
+pandas data cleaning, song_length = 0, play_time !=0 >>说明song is real,
+
+
