@@ -13,15 +13,18 @@ i.e.
 any song with 0 song_length or play_time>song_length needs to be dropped.
 **play** file: after group by userid, we can count how many songs they have listened, some abnormal records need to be eliminated.
 
-3.download can be down in request and beautifulSoup, unzip can be down by shell file using cgywin.
-
+3.download can be down in request and beautifulSoup, unzip can be down by shell file using **cgywin**.
+cd/cygdrive/e/projects/Music #go to the work directory
+./unzip_clean_play.sh
 Since I use Windows, the separate is \n, convert it into what Linux can read
 - using
 sed -i 's/\r//' xxxx.sh
 
 or
 
-dos2unix.exe xxx.sh
+dos2unix xxx.sh
+
+before actually run unzip.sh
 -after install Spark, use pyspark as notebook, but find libs of python such as numpy, pandas are not accessible. so install them under the Python file(using cmd)
 pip install numpy
 **commend**
