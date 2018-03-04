@@ -17,9 +17,16 @@ any song with 0 song_length or play_time>song_length needs to be dropped.
 
 Since I use Windows, the separate is \n, convert it into what Linux can read
 - using
-sed -i 's/\r$$//' xxxx.sh
+sed -i 's/\r//' xxxx.sh
+
+or
+
+dos2unix.exe xxx.sh
 -after install Spark, use pyspark as notebook, but find libs of python such as numpy, pandas are not accessible. so install them under the Python file(using cmd)
 pip install numpy
+**commend**
+cd /cygdrive/d
+./xxx.sh
 4.Install Spark
 [how to install spark](https://medium.com/@GalarnykMichael/install-spark-on-windows-pyspark-4498a5d8d66c)
 
