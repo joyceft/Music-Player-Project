@@ -1,49 +1,25 @@
-# unzip uid
-
-#cp ../Music/3_1.uids.gz ../Music/all_uid.txt.gz
-
-#gunzip ../Music/all_uid.txt.gz
-
-
-# unzip search log
-
+###unzip and integration search file
+###the first workplace is under e/projects/Music
 for f in ../Music/*_search.log.tar.gz
-
 do
-
- echo "Processing $f"
-
- tar -xvzf $f 
-
+  echo "Processing unzip $f"
+  tar -xvzf $f -O > "${f%.tar.gz}"
 done
 
-
-
+#move all unzipped search.log into search file
 mv *_search.log ../Music/search/
 
+#now the workplace changed to e/projects/Music/search, this .sh should also go to search file, so run the above first, then run the below.
+#add filename as a new variable to each search.log
 
+#cd /cygdrive/e/projects/Music/search/
 
-cp ../Music/*_search.log.gz ../Music/search/ 
-
-gunzip ../Music/search/*.gz
-
-
-
-# append file_name to each row (will be used for date)
-cd ../Music/search/
-
-for f in *.log
-
+for f in ../search/*_search.log
 do
-
- echo "Processing $f"
-
- awk -v var="$f" '{print $0,"\t",var}' $f > ${f}.fn
-
+  echo "rename processing $f"
+  awk -v var="$f" '{print $0, "\t", var}' $f > ${f}.fn
 done
 
-
-
-# cat all log with filename to one file
-
-cat ../Music/search/*.log.fn > ../MusicFile/all_search.log.fn
+#cat all search.log with its filename to a whole file
+echo "integrate to one search.log"
+cat ../search/*log.fn > ../search/all_search_1.log.fn
