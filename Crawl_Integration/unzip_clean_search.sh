@@ -14,7 +14,7 @@ mv *_search.log ../Music/search/
 
 #cd /cygdrive/e/projects/Music/search/
 
-for f in ../search/*_search.log
+for f in *_search.log
 do
   echo "rename processing $f"
   awk -v var="$f" '{print $0, "\t", var}' $f > ${f}.fn
