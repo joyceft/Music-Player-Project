@@ -1,7 +1,51 @@
 # Music-Player-Project
-Based on user's searching, downloading and playing records in MusicBox through 03/01/2017 to 05/12/2017, analysis their patterns and find the churn rate and predict. 
+Based on three types of log data, including **user's search**, **download** and **play** records in MusicBox App through 03/01/2017 to 05/12/2017, analyze their behavior patterns and trends, churn prediction to provide more business insights for MusicBox. 
 
 [Data can be found in:] (https://bittigermusicplayerdata.s3-us-west-2.amazonaws.com/list.html)
+
+## Dataset Description(Ideas after self cleaning and exploration)
+### 1.Play.log
+- user_id (numeric) :5 digits-11digits
+- device (categoric) :ar/ip
+- song_id (numeric)
+- song_type (categoric) : 0/1/2
+- song_name(object) : Chinese/Japanese character
+- singer(object) : Chinese/Japanese character
+- play_time(numeric): records as single play records(not cumulative)most dirty data and need lots of effort to clean up
+- song_length(numeric): records in seconds
+- paid_flag (categoric): 0/1
+- file_name(object): mannually extracted from file_name, added as a new column when integrating file, as the record day
+### 2. search.log
+- user_id
+- device
+- song_id
+- search time
+- url
+### 3. download.log
+- user_id
+- song_id
+- song_name
+- song_type
+- singer
+
+## Business Goal
+Based on different user behavior log, finding the user act patterns and trends, creating Churn window to analyze and predict user churn behavior, aimed to prevent potential churn and providing applicable business insights and recommendations.
+
+## Data Processing
+### 1. Download & Integration(Shell&Python)
+- Crawled and downloaded raw data files using BeautifulSoup, requests libraries 
+- Unzipped, added file_name to each file as new variable indicating the date information by writing Shellscript, ran in cgywin
+- Intgrated all files of one type into a entire file by writing Shellscript, ran in cgywin
+### 2. Clean & Imputation & Extraction(Spark&Python)
+- Filtered mislocation fields when parsing each row into Spark by fields length, fields datatypes
+- Filtered extremely large play_time and frequency, based on the avereage and range of other music apps daily play time.(average play_time > 8h/day)
+- Filtered abnormal song_length and impute missing song_length with average play_time in the entire period
+- Extracted variables mainly useful for churn prediction. Dropped song_name, singer, etc to reduce dataset size, reduce redundency and save analysis costs
+- 
+
+
+
+
 
 ## Some notes for myself
 1.there are three types of file, including search, download, play. Most file name contains date information, so this variable needs to
@@ -42,16 +86,7 @@ cd /cygdrive/d
 If using DataFrame in spark, it really takes long time to execute.. so try rdd.
 ### Explore play.fn
 Using 'unzip_clean_play.sh' to combine all daily log data into a whole file, adding the filename(which contains the date) as new column. The combined play.log.fn contains features as:
-- user_id numeric
-- device categoric
-- song_id
-- song_type
-- song_name
-- singer
-- play_time
-- song_length
-- paid_flag
-- date
+
 1.Since we are aiming to analyze and predict churn rate, informationa about songs are of little use. So to accelerate our calculation, we first drop those columns(song_id, song_type, song_name, singer)
 2.Dealing with abnormal data
 
