@@ -43,6 +43,40 @@ Based on different user behavior log, finding the user act patterns and trends, 
 - Extracted variables from each type log, mainly useful for churn prediction. Dropped song_name, singer, etc to reduce dataset size, reduce redundency and save analysis costs.
 - **Downsampling**
 purpose: shrink dataset size, balance churn/active rate
+- device: users are in multiple platform, one user has both play records in andriod and IPhone device.
+### 3.Feature Generation
+- time-window =[1,3,7,14,21,30], snapshot date = 4/29
+- frequency: count of play/search/download records within each time-window
+- recency: last day of play/search/download action
+- play_complete degree: average play complete degree
+- dummy device
+ 
+### 4. Prediction Model
+- Applied multiple binary classification models in feature_data, tried default model first, then applied **RandomizedSearchCV** and **GridSearchCV** to find the best parameter. Models including:
+- Decision Tree
+- Random Forest
+- AdaBoost
+- Evaluated model preformance by various preformance matrix, confusion matrix, ROC curve.
+
+### Improvements & Business Insights
+With more available information, we can have better idea of users, and better predict their behaviors based on models.
+1. Refine churn type: use different threshold define churn(key action, time_window, etc), according to specific business targets.
+2. User portfolios: When download MusicBox App or registered as new user, basic information of users can be obtained. Including their region, age, gender, membership, purchase history, etc, whether they have other connected social media accounts, etc.
+3. User segmentation: with their demographical information, behavior records to segment user, customized analytical models and recommendation methods
+4. Technical Support: During EDA, found huge imbalance with different device. The play_time of IPhone user is much more fluctuated than Andriod and Both device holders. More efforts should be down to improve and update IPhone device, such as API, latency, version, operation, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -85,26 +119,4 @@ cd /cygdrive/d
 [how to install spark] (https://medium.com/@GalarnykMichael/install-spark-on-windows-pyspark-4498a5d8d66c)
 
 If using DataFrame in spark, it really takes long time to execute.. so try rdd.
-### Explore play.fn
-Using 'unzip_clean_play.sh' to combine all daily log data into a whole file, adding the filename(which contains the date) as new column. The combined play.log.fn contains features as:
-
-1.Since we are aiming to analyze and predict churn rate, informationa about songs are of little use. So to accelerate our calculation, we first drop those columns(song_id, song_type, song_name, singer)
-2.Dealing with abnormal data
-
-save unique user_id list to memory, when 
-machine users: play.count(<95%)
-
-**churn label**
-**down sampling** 
-try from smaller, 30%, 40%, if not improve, 
-
-**Note 3.2**
-count of song_play time, total time, distinct count
-
-
-20170339 ->20170329
-20170309-20170329中间没有
-其余按uid, date, play_time, song_length<<看
-pandas data cleaning, song_length = 0, play_time !=0 >>说明song is real,
-
 
