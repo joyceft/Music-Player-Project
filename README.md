@@ -4,10 +4,10 @@ Based on three types of log data, including **user's search**, **download** and 
 [Data can be found in:] (https://bittigermusicplayerdata.s3-us-west-2.amazonaws.com/list.html)
 
 ## Dataset Description(Ideas after self cleaning and exploration)
-### 1.Play.log
+### 1.Play.log(17G)
 - user_id (numeric) :5 digits-11digits
 - device (categoric) :ar/ip
-- song_id (numeric)
+- song_id (numeric): 1 digit - 15 digits
 - song_type (categoric) : 0/1/2
 - song_name(object) : Chinese/Japanese character
 - singer(object) : Chinese/Japanese character
@@ -15,13 +15,13 @@ Based on three types of log data, including **user's search**, **download** and 
 - song_length(numeric): records in seconds
 - paid_flag (categoric): 0/1
 - file_name(object): mannually extracted from file_name, added as a new column when integrating file, as the record day
-### 2. search.log
+### 2. search.log(11G)
 - user_id
 - device
 - song_id
 - search time
 - url
-### 3. download.log
+### 3. download.log(7G)
 - user_id
 - song_id
 - song_name
@@ -40,8 +40,9 @@ Based on different user behavior log, finding the user act patterns and trends, 
 - Filtered mislocation fields when parsing each row into Spark by fields length, fields datatypes
 - Filtered extremely large play_time and frequency, based on the avereage and range of other music apps daily play time.(average play_time > 8h/day)
 - Filtered abnormal song_length and impute missing song_length with average play_time in the entire period
-- Extracted variables mainly useful for churn prediction. Dropped song_name, singer, etc to reduce dataset size, reduce redundency and save analysis costs
-- 
+- Extracted variables from each type log, mainly useful for churn prediction. Dropped song_name, singer, etc to reduce dataset size, reduce redundency and save analysis costs.
+- **Downsampling**
+purpose: shrink dataset size, balance churn/active rate
 
 
 
